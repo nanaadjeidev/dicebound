@@ -1,0 +1,126 @@
+/* ── Dice Forge ────────────────────────────────────────────────────────────── */
+.forge__hint { font-family: var(--font-flavour); font-size: 18px; }
+.forge__layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 22px; align-items: stretch; }
+
+.forge__stage { position: relative; padding: 0; overflow: hidden; min-height: 560px; }
+.forge__canvas { position: absolute; inset: 0; }
+.forge__canvas canvas { display: block; }
+
+.forge__result {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  translate: -50% 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.9);
+}
+.forge__result span { font: 600 12px var(--font-ui); text-transform: uppercase; letter-spacing: 0.28em; color: var(--muted); }
+.forge__result strong { font: 800 64px/1 var(--font-display); color: var(--gold-hi); }
+.forge__result em { font: italic 600 20px var(--font-flavour); color: var(--gold-hi); }
+.forge__result.is-crit strong { color: #ffe9a8; text-shadow: 0 0 30px rgba(243, 211, 143, 0.8); }
+.forge__result.is-fumble strong, .forge__result.is-fumble em { color: var(--blood-hi); }
+
+.forge__history {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(90deg, #000 70%, transparent);
+}
+.forge__history li {
+  flex: none;
+  min-width: 34px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  text-align: center;
+  font: 700 14px var(--font-display);
+  color: var(--ink-2);
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid var(--line);
+}
+.forge__history li:first-child { color: var(--gold-hi); border-color: var(--line-strong); }
+
+.forge__controls { display: flex; flex-direction: column; gap: 20px; }
+.forge__controls section { display: flex; flex-direction: column; gap: 8px; }
+.forge__dice { display: grid; grid-template-columns: repeat(6, 1fr); }
+.forge__dice button { justify-content: center; min-width: 0; padding: 8px 0; font-family: var(--font-display); font-weight: 700; }
+.forge__preset { display: inline-flex; align-items: center; gap: 7px; }
+.forge__preset i { width: 12px; height: 12px; border-radius: 3px; rotate: 45deg; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2); }
+.forge__colours { display: grid !important; grid-template-columns: repeat(3, 1fr); gap: 10px !important; }
+.forge__colours--two { grid-template-columns: repeat(2, 1fr); margin-top: 4px; }
+.forge__colours input { width: 100%; cursor: pointer; }
+.forge__glow-label { display: inline-flex; align-items: center; gap: 6px; }
+
+.forge__range { padding: 0; height: 6px; border: 0; border-radius: 99px; appearance: none; cursor: pointer; background: linear-gradient(90deg, var(--gold-lo), var(--gold-hi)); }
+.forge__range::-webkit-slider-thumb { appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--ink); border: 3px solid var(--gold); box-shadow: 0 2px 8px #000; }
+.forge__range::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--ink); border: 3px solid var(--gold); box-shadow: 0 2px 8px #000; }
+.forge__range-labels { display: flex; justify-content: space-between; color: var(--muted); }
+
+.forge__roll { justify-content: center; margin-top: auto; }
+
+@media (max-width: 900px) {
+  .forge__layout { grid-template-columns: 1fr; }
+  .forge__stage { min-height: 0; aspect-ratio: 1 / 1; max-height: 70vh; }
+}
+@media (max-width: 520px) {
+  .forge.page { padding-left: 16px; padding-right: 16px; }
+  .forge__dice button { font-size: 12px; }
+}
+
+/* Roll tab */
+.forge__tabs { display: grid; grid-template-columns: 1fr 1fr; }
+.forge__tabs button { justify-content: center; }
+.forge__formula { font: 700 20px var(--font-display); letter-spacing: 0.06em; color: var(--gold-hi); }
+.forge__error { color: var(--blood-hi); }
+.forge__aside { margin-left: 6px; text-transform: none; letter-spacing: 0; font-weight: 500; color: var(--muted); opacity: 0.8; }
+.forge__quick { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
+.forge__qdie {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid var(--line-strong);
+  background: radial-gradient(circle at 50% 30%, rgba(212, 168, 90, 0.18), rgba(0, 0, 0, 0.35));
+  font: 700 12px var(--font-display);
+  color: var(--gold-hi);
+  transition: 0.15s;
+}
+.forge__qdie:hover { border-color: var(--gold); transform: translateY(-1px); box-shadow: 0 6px 16px -8px rgba(212, 168, 90, 0.6); }
+.forge__qdie:active { transform: translateY(0) scale(0.96); }
+.forge__qdie--clear { color: var(--muted); background: rgba(0, 0, 0, 0.3); border-color: var(--line); }
+.forge__row2 { display: grid !important; grid-template-columns: auto 1fr; gap: 14px !important; align-items: end; }
+.forge__row2 > div { display: flex; flex-direction: column; gap: 8px; }
+.forge__row2 .segmented { display: flex; }
+.forge__row2 .segmented button { flex: 1; padding: 7px 6px; }
+.forge__row2 .segmented button:disabled { opacity: 0.35; cursor: not-allowed; }
+.forge__preset-roll small { color: var(--muted); font-size: 11px; text-transform: none; }
+.forge__result small { margin-top: 2px; font-size: 12px; color: var(--ink-2); }
+
+.breakdown { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 10px; border-radius: 10px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--line); }
+.breakdown__part { display: inline-flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.breakdown__part em { font-style: normal; color: var(--muted); padding: 0 2px; }
+.breakdown__part b { font: 700 15px var(--font-display); color: var(--ink); }
+.breakdown__die {
+  min-width: 28px;
+  padding: 3px 6px;
+  text-align: center;
+  border-radius: 7px;
+  font: 700 14px var(--font-display);
+  color: var(--ink);
+  background: rgba(212, 168, 90, 0.12);
+  border: 1px solid var(--line-strong);
+}
+.breakdown__die.is-max { color: #ffe9a8; border-color: var(--gold); box-shadow: 0 0 10px -2px rgba(243, 211, 143, 0.6); }
+.breakdown__die.is-min { color: var(--blood-hi); border-color: rgba(239, 79, 67, 0.5); }
+.breakdown__die.is-dropped { opacity: 0.4; text-decoration: line-through; }
